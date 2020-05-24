@@ -20,7 +20,7 @@ three_pct_list = []
 for t in range(len(three_pct)):
     three_pct_list.append(three_pct[t].text)
 
-data_tuples = list(zip(teams_list[1:],three_pct_list[1:]))
+data_tuples = list(zip(teams_list,three_pct_list))
 df = pd.DataFrame(data_tuples, columns = ['Teams', '3-pt %'])
 
 #print(data_tuples)
