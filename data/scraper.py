@@ -63,6 +63,8 @@ for i in range(len(teams_def_list)):
     temp_data.append(pp100_def_list[i])
     data_def.append(temp_data)
 
+driver.close()
+
 df1 = pd.DataFrame(data, columns = ['Teams', '3-pt%', 'Points Per 100 Possessions'])
 df1.sort_values(by=['Teams'], inplace=True, ascending=True)
 
@@ -73,7 +75,14 @@ df2.sort_values(by=['Teams'], inplace=True, ascending=True)
 #print(df1)
 #print(df2)
 
-driver.close()
-
 df = pd.merge(df1, df2, on='Teams', how='outer')
 print(df)
+
+#get net values
+#df['Net Rating Per 100 Possessions'] = df.apply()
+
+#Write to excel file
+writer = pd.ExcelWriter('team-data.xlsx', engine='xlsxwriter')
+df.to_excel(writer, sheet_name='Threes Data', index=False)
+writer.save()
+
