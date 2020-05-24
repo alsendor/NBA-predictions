@@ -70,8 +70,8 @@ df2 = pd.DataFrame(data_def, columns = ['Teams', 'Opp 3-pt%', 'Opp Points Per 10
 df2.sort_values(by=['Teams'], inplace=True, ascending=True)
 
 #print(data_tuples)
-print(df1)
-print(df2)
+#print(df1)
+#print(df2)
 
 driver.close()
 
