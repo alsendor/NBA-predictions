@@ -28,7 +28,7 @@ for t in range(len(pp100)):
 
 #create dataset
 data = []
-for i in range(len(teams_list)-1):
+for i in range(len(teams_list)):
     temp_data = []
     temp_data.append(teams_list[i])
     temp_data.append(three_pct_list[i])
@@ -75,3 +75,5 @@ print(df2)
 
 driver.close()
 
+df = pd.merge(df1, df2, on='Teams', how='outer')
+print(df)
