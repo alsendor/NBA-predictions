@@ -20,8 +20,9 @@ three_pct_list = []
 for t in range(len(three_pct)):
     three_pct_list.append(three_pct[t].text)
 
-data_tuples = list(zip(teams_list,three_pct_list))
-df = pd.DataFrame(data_tuples, columns = ['Teams', '3-pt %'])
+data_tuples = list(zip(teams_list[0:30],three_pct_list[0:30]))
+df = pd.DataFrame(data_tuples, columns = ['Teams', '3-pt%'])
+df.sort_values(by=['3-pt%'], inplace=True, ascending=True)
 
 #print(data_tuples)
 print(df)
