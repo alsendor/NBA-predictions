@@ -4,8 +4,8 @@ from selenium.webdriver.common.keys import Keys
 import pandas as pd
 from openpyxl import load_workbook
 
-years = range(2020,2021) #years we will be taking stats from
-writer = pd.ExcelWriter('team-data.xlsx', engine='xlsxwriter') #excel to write to
+years = range(2010,2021) #years we will be taking stats from
+main_df = pd.DataFrame(columns = ['Year', 'Teams', '3-pt%', 'Points Per 100 Possessions', 'Opp 3-pt%', 'Opp Points Per 100 Possessions'])
 
 for year in years:
     driver = webdriver.Chrome('/Users/alsendor/SHIT/999/chromedriver')
@@ -83,7 +83,7 @@ for year in years:
 
     df = pd.merge(df1, df2, on='Teams', how='outer')
     df.insert(0, 'Year', year)
-    print(df)
+    main_df = pd.concat([main_df,df])
 
     #get net values
     #df['Net Rating Per 100 Possessions'] = df.apply()
@@ -91,10 +91,14 @@ for year in years:
     #read existing excel file
     #fix this through excel!
     #writer.book = load_workbook('team-data.xlsx')
-    reader = pd.read_excel(r'team-data.xlsx')
+    #reader = pd.read_excel(r'team-data.xlsx')
 
     #Write to excel file
-    df.to_excel(writer, sheet_name='Threes Data', index=False, header=False)
+    #df.to_excel(writer, sheet_name='Threes Data', index=False, header=False)
     #df.to_excel(writer, sheet_name='Threes Data', index=False, header=False, startrow=len(reader)+1)
-    writer.save()
-
+    #writer.save()
+print(main_df)
+#write to excel
+writer = pd.ExcelWriter('team-data.xlsx', engine='xlsxwriter')
+main_df.to_excel(writer, sheet_name='Threes Data', index=False)
+writer.save()
