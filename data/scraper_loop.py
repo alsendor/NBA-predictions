@@ -2,8 +2,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
+from openpyxl import load_workbook
 
-years = range(2010,2021) #years we will be taking stats from
+years = range(2020,2021) #years we will be taking stats from
 writer = pd.ExcelWriter('team-data.xlsx', engine='xlsxwriter') #excel to write to
 
 for year in years:
@@ -71,11 +72,9 @@ for year in years:
     driver.close()
 
     df1 = pd.DataFrame(data, columns = ['Teams', '3-pt%', 'Points Per 100 Possessions'])
-    df1.insert(0, 'Year', year)
     df1.sort_values(by=['Teams'], inplace=True, ascending=True)
 
     df2 = pd.DataFrame(data_def, columns = ['Teams', 'Opp 3-pt%', 'Opp Points Per 100 Possessions'])
-    df2.insert(0, 'Year', year)
     df2.sort_values(by=['Teams'], inplace=True, ascending=True)
 
     #print(data_tuples)
@@ -83,12 +82,19 @@ for year in years:
     #print(df2)
 
     df = pd.merge(df1, df2, on='Teams', how='outer')
+    df.insert(0, 'Year', year)
     print(df)
 
     #get net values
     #df['Net Rating Per 100 Possessions'] = df.apply()
+    
+    #read existing excel file
+    #fix this through excel!
+    #writer.book = load_workbook('team-data.xlsx')
+    reader = pd.read_excel(r'team-data.xlsx')
 
     #Write to excel file
-    df.to_excel(writer, sheet_name='Threes Data', index=False)
+    df.to_excel(writer, sheet_name='Threes Data', index=False, header=False)
+    #df.to_excel(writer, sheet_name='Threes Data', index=False, header=False, startrow=len(reader)+1)
     writer.save()
 
