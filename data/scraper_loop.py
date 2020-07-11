@@ -5,7 +5,7 @@ import pandas as pd
 from openpyxl import load_workbook
 
 years = range(2010,2021) #years we will be taking stats from
-main_df = pd.DataFrame(columns = ['Year', 'Teams', '3-pt%', 'Points Per 100 Possessions', 'Opp 3-pt%', 'Opp Points Per 100 Possessions'])
+main_df = pd.DataFrame()
 
 for year in years:
     driver = webdriver.Chrome('/Users/alsendor/SHIT/999/chromedriver')
